@@ -11,13 +11,10 @@ module.exports = {
       username: {
         type: DataTypes.STRING
       },
-      password: {
+      password_digest: {
         type: DataTypes.STRING
       },
       email: {
-        type: DataTypes.STRING
-      },
-      user_id: {
         type: DataTypes.STRING
       },
       created_at: {

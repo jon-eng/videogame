@@ -23,6 +23,9 @@ module.exports = {
       similar: {
         type: DataTypes.STRING
       },
+      user_id: {
+        type: DataTypes.INTEGER
+      },
       created_at: {
         allowNull: false,
         type: DataTypes.DATE

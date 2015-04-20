@@ -8,12 +8,23 @@ var session     = require('express-session');
 
 var usersRouter = express.Router();
 
-app.post('/users', function(req, res) {
+usersRouter.use(session({
+  secret: 'blob',
+  saveUninitialized: false,
+  resave: false
+}));
+
+usersRouter.get('/debug_session', function(req, res) {
+  res.send(req.session);
+});
+
+usersRouter.post('/', function(req, res) {
   bcrypt.hash(req.body.password, 10, function(err, hash) {
     User
       .create({
         username: req.body.username,
-        password_digest: hash
+        password_digest: hash,
+        email: req.body.email
       })
       .then(function(user) {
         res.send(user);
@@ -21,18 +32,58 @@ app.post('/users', function(req, res) {
   });
 });
 
-app.get('/users/:id', function(req, res) {
+usersRouter.get('/', function(req, res) {
+    User
+      .findAll({
+        include: [Game]
+      })
+      .then(function(user) {
+        res.send(user);
+      });
+});
+
+
+usersRouter.post('/sessions', function(req, res) {
+  var username = req.body.username;
+  var password = req.body.password;
+
   User
     .findOne({
-      where: { id: req.params.id },
-      include: [Game]
+      where: { username: username }
     })
+    .then(function(user) {
+      if (user) {
+        bcrypt.compare(password, user.password_digest, function(err, result) {
+          if (result) {
+            req.session.currentUser = user.id;
+            res.send(user);
+          } else {
+            res.status(400);
+            res.send({ err: 400, msg: 'Incorrect Password' });
+          }
+        });
+      } else {
+        res.status(400);
+        res.send({ err: 400, message: ''});
+      }
+    });
+});
+
+usersRouter.delete('/sessions', function(req, res) {
+  delete req.session.currentUser;
+  res.send({ msg: 'Logged Out' });
+});
+
+usersRouter.get('/current_user', function(req, res) {
+  var userID = req.session.currentUser;
+  User.findOne(userID)
     .then(function(user) {
       res.send(user);
     });
 });
 
-app.delete('/users/:id', function(req, res) {
+
+usersRouter.delete('/:id', function(req, res) {
   User
     .findOne(req.params.id)
     .then(function(user) {
@@ -44,3 +95,17 @@ app.delete('/users/:id', function(req, res) {
         });
     });
 });
+
+usersRouter.get('/:id', function(req, res) {
+  User
+    .findOne({
+      where: { id: req.params.id },
+      include: [Game]
+    })
+    .then(function(user) {
+      res.send(user);
+    });
+});
+
+
+module.exports = usersRouter;

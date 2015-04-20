@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
         notEmpty: {msg: 'Name cannot be blank'}
       }
     },
-    password: {
+    password_digest: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

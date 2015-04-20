@@ -1,13 +1,14 @@
-var application_root = __dirname,
-    express          = require('express'),
-    bodyParser       = require('body-parser'),
-    path             = require('path'),
-    logger           = require('morgan'),
-    searchGamesRouter= require('./routers/search_games_router.js'),
-    sessionsRouter   = require('./routers/sessions_router.js'),
-    currentUserRouter   = require('./routers/current_user_router.js'),
-    bcrypt           = require('bcrypt'),
-    session          = require('express-session');
+var application_root = __dirname;
+var express = require('express');
+var bodyParser = require('body-parser');
+var path = require('path');
+var logger = require('morgan');
+var searchGamesRouter = require('./routers/search_games_router.js');
+// var sessionsRouter = require('./routers/sessions_router.js');
+// var currentUserRouter = require('./routers/current_user_router.js');
+var userRouter = require('./routers/users_router.js');
+var bcrypt = require('bcrypt');
+var session = require('express-session');
 
 var app = express();
 
@@ -16,9 +17,10 @@ app.use( bodyParser.json() );
 app.use( express.static( path.join( application_root, 'public' )));
 
 app.use('/search_games', searchGamesRouter);
-app.use('/sessions', sessionsRouter);
-app.use('/current_user', currentUserRouter);
+// app.use('/sessions', sessionsRouter);
 
+app.use('/users', userRouter);
+// app.use('/current_user', currentUserRouter);
 
 
 
