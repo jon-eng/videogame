@@ -18,7 +18,7 @@ gameRouter.get('/', function(req, res){
 
   }, function(error, response, body){
     res.send(body)
-  })
-})
+  });
+});
 
 module.exports = gameRouter;

@@ -7,8 +7,42 @@
     <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
+
+    <script src = 'js/app.js'></script>
+    <script src = 'js/views/signupView.js'></script>
+    <script src = 'js/views/loginView.js'></script>
+
 </head>
 <body>
-    <h1> video games</h1>
+   
+  <h1> video games</h1>
+
+<div id = "user-account"></div>
+<div id = "login-box">
+  <template id = "login-template">
+    <h2>Login</h2>
+    <input type="text" id="login-username" placeholder="username">
+    <input type="password" id="login-password" placeholder="password">
+    <button id="login-button">Log In</button>
+  </template>
+</div>
+
+<template id="user-template">
+    <p id="current-user" data-userid={{id}} data-username={{username}}> Welcome back,  {{username}}</p>
+    <button id="logout-button">Logout</button>
+</template>
+
+<div id = "signup-box">
+  <section id="signup">
+    <h2>Sign Up<h2>
+    <input type="text" id="signup-username" placeholder="username">
+    <input type="password" id="signup-password" placeholder="password">
+    <input type="text" id="signup-email" placeholder="email">
+    <button id="signup-button">Sign Up</button>
+  </section>
+</div>
+
+
+
 </body>
 </html>
