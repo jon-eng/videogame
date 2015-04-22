@@ -18,23 +18,17 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    developers: {
+    platforms: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    similar: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    user_id: {
-      type: DataTypes.INTEGER
-    }
   }, {
     underscored: true,
     classMethods: {
       associate: function(models) {
-        games.belongsTo(models.users, {
-          foreignKey: 'user_id'
+        games.belongsToMany(models.users, {
+          through: 'games_users',
+          foreignKey: 'games_id'
         });
       }
     }

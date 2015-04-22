@@ -18,6 +18,7 @@ usersRouter.get('/debug_session', function(req, res) {
   res.send(req.session);
 });
 
+//CREATE USER
 usersRouter.post('/', function(req, res) {
   bcrypt.hash(req.body.password, 10, function(err, hash) {
     User
@@ -32,6 +33,7 @@ usersRouter.post('/', function(req, res) {
   });
 });
 
+//GET USERS FOR TESTING PURPOSES
 usersRouter.get('/', function(req, res) {
     User
       .findAll({
@@ -41,8 +43,8 @@ usersRouter.get('/', function(req, res) {
         res.send(user);
       });
 });
-
-
+ 
+//CREATE SESSIONS FOR USER
 usersRouter.post('/sessions', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
@@ -69,20 +71,24 @@ usersRouter.post('/sessions', function(req, res) {
     });
 });
 
+//DELETE SESSIONS
 usersRouter.delete('/sessions', function(req, res) {
   delete req.session.currentUser;
   res.send({ msg: 'Logged Out' });
 });
 
+
+//GET CURRENT USER
 usersRouter.get('/current_user', function(req, res) {
   var userID = req.session.currentUser;
-  User.findOne(userID)
+  User
+    .findOne(userID)
     .then(function(user) {
       res.send(user);
     });
 });
 
-
+//DELETE USER
 usersRouter.delete('/:id', function(req, res) {
   User
     .findOne(req.params.id)
@@ -96,6 +102,7 @@ usersRouter.delete('/:id', function(req, res) {
     });
 });
 
+//GET ONE USER
 usersRouter.get('/:id', function(req, res) {
   User
     .findOne({
@@ -106,6 +113,36 @@ usersRouter.get('/:id', function(req, res) {
       res.send(user);
     });
 });
+
+//CREATE GAME FOR USER
+usersRouter.post('/:id/games', function(req, res){
+  var userID = req.params.id;
+  User
+    .findOne(userID)
+    .then(function(user){
+      Game
+        .create(req.body)
+        .then(function(newGame){
+          user.addGame(newGame)
+          res.send(newGame)
+        });
+    });
+});
+
+usersRouter.get('/:id/games', function(req, res) {
+  Game
+    .findOne({
+      where: { id: req.params.id },
+    })
+    .then(function(game) {
+      res.send(game);
+    });
+});
+
+
+
+
+
 
 
 module.exports = usersRouter;

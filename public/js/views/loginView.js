@@ -5,17 +5,18 @@ App.Views.LoginView = Backbone.View.extend({
     console.log('load login')
     loginTemplate = Handlebars.compile($('#login-template').html());
     userTemplate = Handlebars.compile($('#user-template').html());
+    profileTemplate = Handlebars.compile($('#profile-template').html());
     // this.render();
     this.renderSession(); 
   },
 
-  // render: function(){
-  //   this.$('#login-box').append(loginTemplate());
-  // },
 
   events: {
     'click #login-button': 'login',
-    'click #logout-button': 'logout'
+    'click #logout-button': 'logout',
+    'click #signup-button': 'signup',
+    'click #search-button': 'findGames',
+    'click #profile-button': 'viewProfile'
   },
 
   login: function(){
@@ -28,6 +29,8 @@ App.Views.LoginView = Backbone.View.extend({
       password: password
     }).done(this.renderSession);
 
+    $('#signup').empty();
+
   },
 
   logout: function() {
@@ -36,6 +39,8 @@ App.Views.LoginView = Backbone.View.extend({
       url: '/users/sessions',
       method: 'DELETE',
     }).done(this.renderSession);
+
+    $('.game-container').empty();
   },
 
 
@@ -51,6 +56,49 @@ App.Views.LoginView = Backbone.View.extend({
         $('#session').html('Work In Progress');
       }
     }.bind(this));
-},
+  },
+
+  findGames: function(){
+    console.log('clicked search')
+    App.games.fetch({
+      success: function(){
+       $('#profile-view').empty(); 
+      }
+    })
+    
+  },
+
+  viewProfile: function(){
+    console.log('clicked view profile')
+    var userId = $('#current-user').attr('data-userId');
+    $.get('/users/' + userId)
+      .done(function (profile) {
+        $('.game-container').remove();
+        $('#profile-view').append(profileTemplate(profile))
+      })
+  },
+
+
+  signup: function(){
+    console.log('click')
+    var username = $('#signup-username').val();
+    var password = $('#signup-password').val();
+    var email = $('#signup-email').val();
+
+      $.post('/users', {
+        username: username,
+        password: password,
+        email: email
+      })
+      .done(function() {
+        alert('Successfully Signed Up!');
+        $('#signup-username').val('');
+        $('#signup-password').val('');
+        $('#signup-email').val('');
+      })
+      .fail(function() {
+        alert('Fail!');
+  });
+  }
 
 });

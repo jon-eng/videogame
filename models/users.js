@@ -29,7 +29,10 @@ module.exports = function(sequelize, DataTypes) {
     underscored: true,
     classMethods: {
       associate: function(models) {
-        users.hasMany(models.games, {foreignKey: 'user_id'});
+        users.belongsToMany(models.games, {
+          through: 'games_users',
+          foreignKey: 'users_id'
+        });
       }
     }
   });
