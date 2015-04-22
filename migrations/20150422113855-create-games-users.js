@@ -2,10 +2,10 @@
 module.exports = {
   up: function(migration, DataTypes, done) {
     migration.createTable("games_users", {
-      games_id: {
+      game_id: {
         type: DataTypes.INTEGER
       },
-      users_id: {
+      user_id: {
         type: DataTypes.INTEGER
       },
       created_at: {

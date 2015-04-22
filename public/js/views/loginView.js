@@ -41,6 +41,7 @@ App.Views.LoginView = Backbone.View.extend({
     }).done(this.renderSession);
 
     $('.game-container').empty();
+    $('#profile-view').empty()
   },
 
 
