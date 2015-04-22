@@ -117,16 +117,32 @@ usersRouter.get('/:id', function(req, res) {
 //CREATE GAME FOR USER
 usersRouter.post('/:id/games', function(req, res){
   var userID = req.params.id;
-  User
-    .findOne(userID)
-    .then(function(user){
-      Game
-        .create(req.body)
-        .then(function(newGame){
-          user.addGame(newGame)
-          res.send(newGame)
-        });
-    });
+  Game
+    .findOrCreate({where: {name: req.body.name}, defaults: req.body})
+    .then(function(game) {
+      User
+        .findOne(userID)
+        .then(function(user) {
+           console.log(game);
+          user
+            .addGame(game[0])
+            .then(function(info) {
+              res.send(info);
+            })
+        })
+    })
+  // User
+  //   .findOne(userID)
+  //   .then(function(user){
+  //     Game
+  //       .findOrCreate({where: {name: req.body.name}, defaults: req.body})
+  //       .then(function(game){
+  //         console.log(user);
+  //         console.log(game);
+  //           user.addGame(game);
+  //           res.send(game)
+  //       });
+  //   });
 });
 
 usersRouter.get('/:id/games', function(req, res) {

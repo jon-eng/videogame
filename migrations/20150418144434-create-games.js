@@ -10,7 +10,7 @@ module.exports = {
       },
       name: {
         type: DataTypes.STRING,
-        unique:true
+        // unique:true
       },
       deck: {
         type: DataTypes.STRING
@@ -20,9 +20,6 @@ module.exports = {
       },
       platforms: {
         type: DataTypes.STRING
-      },
-      user_id: {
-        type: DataTypes.INTEGER
       },
       created_at: {
         allowNull: false,
