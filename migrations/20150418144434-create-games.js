@@ -9,7 +9,8 @@ module.exports = {
         type: DataTypes.INTEGER
       },
       name: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique:true
       },
       deck: {
         type: DataTypes.STRING
@@ -17,10 +18,7 @@ module.exports = {
       image: {
         type: DataTypes.STRING
       },
-      developers: {
-        type: DataTypes.STRING
-      },
-      similar: {
+      platforms: {
         type: DataTypes.STRING
       },
       user_id: {

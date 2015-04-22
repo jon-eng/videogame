@@ -7,6 +7,7 @@ var searchGamesRouter = require('./routers/search_games_router.js');
 // var sessionsRouter = require('./routers/sessions_router.js');
 // var currentUserRouter = require('./routers/current_user_router.js');
 var userRouter = require('./routers/users_router.js');
+var gameRouter = require('./routers/games_router.js');
 var bcrypt = require('bcrypt');
 var session = require('express-session');
 
@@ -21,6 +22,8 @@ app.use('/search_games', searchGamesRouter);
 
 app.use('/users', userRouter);
 // app.use('/current_user', currentUserRouter);
+app.use('/games', gameRouter);
+
 
 
 
