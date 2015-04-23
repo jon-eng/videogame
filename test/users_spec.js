@@ -13,37 +13,41 @@ describe('User', function(){
       nullUser = User.build();
     });
 
-    it('should validate the presence of a name', function(done){
+    it('should validate the presence of a username', function(done){
       nullUser
         .validate()
         .then(function(err){
           var error_fields = err.errors.map(function(error){
             return error.path; });
-          expect(error_fields).to.include('name');
+          expect(error_fields).to.include('username');
           done();
         });
     });
 
-    it('should validate the presence of a city', function(done){
+    it('should validate the presence of a password_digest', function(done){
       nullUser
         .validate()
         .then(function(err){
           var error_fields = err.errors.map(function(error){
             return error.path; });
-          expect(error_fields).to.include('city');
+          expect(error_fields).to.include('password_digest');
           done();
         });
     });
 
-    it('should validate the presence of a address', function(done){
+    it('should validate the presence of a email', function(done){
       nullUser
         .validate()
         .then(function(err){
           var error_fields = err.errors.map(function(error){
             return error.path; });
-          expect(error_fields).to.include('address');
+          expect(error_fields).to.include('email');
           done();
         });
     });
 
   });
+});
+
+
+
