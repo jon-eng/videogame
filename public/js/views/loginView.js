@@ -6,8 +6,17 @@ App.Views.LoginView = Backbone.View.extend({
     loginTemplate = Handlebars.compile($('#login-template').html());
     userTemplate = Handlebars.compile($('#user-template').html());
     profileTemplate = Handlebars.compile($('#profile-template').html());
+    youtubeTemplate = Handlebars.compile($('#yt-template').html());
+
+
+
+
     // this.render();
     this.renderSession(); 
+  },
+
+  pacman: function() {
+
   },
 
 
@@ -16,7 +25,8 @@ App.Views.LoginView = Backbone.View.extend({
     'click #logout-button': 'logout',
     'click #signup-button': 'signup',
     'click #search-button': 'findGames',
-    'click #profile-button': 'viewProfile'
+    'click #profile-button': 'viewProfile',
+    'click #game-image-profile': 'viewVideo'
   },
 
   login: function(){
@@ -29,7 +39,7 @@ App.Views.LoginView = Backbone.View.extend({
       password: password
     }).done(this.renderSession);
 
-    $('#signup').empty();
+    // $('#signup').empty();
 
   },
 
@@ -41,11 +51,25 @@ App.Views.LoginView = Backbone.View.extend({
     }).done(this.renderSession);
 
     $('.game-container').empty();
-    $('#profile-view').empty()
+    $('#profile-view').empty();
+    $('#player').empty();
+  },
+
+  viewVideo: function(event){
+    console.log('image clicked')
+    var name = event.currentTarget.className;
+    console.log(name)
+    var newObj = {name:name}
+    var compiledTemplate = youtubeTemplate(newObj);
+
+    $('#player').html(compiledTemplate)
+
   },
 
 
   renderSession: function() {
+    // this.pacman();
+    $('#signup').empty();
     $.get('/users/current_user').done(function(user) {
       if (user) {
         $('#user-account').html(userTemplate(user));
@@ -64,19 +88,22 @@ App.Views.LoginView = Backbone.View.extend({
     App.games.fetch({
       success: function(){
        $('#profile-view').empty(); 
+       $('#player').empty();
       }
     })
     
   },
 
   viewProfile: function(){
-    console.log('clicked view profile')
-    var userId = $('#current-user').attr('data-userId');
-    $.get('/users/' + userId)
-      .done(function (profile) {
-        $('.game-container').remove();
-        $('#profile-view').append(profileTemplate(profile))
-      })
+    // console.log('clicked view profile')
+    // var userId = $('#current-user').attr('data-userId');
+    // $.get('/users/' + userId)
+    //   .done(function (profile) {
+    $('.game-container').remove();
+    //     $('#profile-view').append(profileTemplate(profile))
+    //   })
+    console.log('view profile clicked')
+    App.myGames.fetch();
   },
 
 

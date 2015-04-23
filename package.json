@@ -18,7 +18,9 @@
   "homepage": "https://github.com/jon-eng/videogame",
   "dependencies": {
     "bcrypt": "^0.8.2",
+    "chai": "^2.2.0",
     "express-session": "^1.11.1",
+    "mocha": "^2.2.4",
     "pg": "^4.3.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^2.0.6"

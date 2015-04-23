@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
     },
 
     deck: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     image: {
