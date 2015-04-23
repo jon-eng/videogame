@@ -9,26 +9,33 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
 
+
     <script src = 'js/app.js'></script>
 
     <script src = 'js/models/game.js'></script>
+    <script src = 'js/models/myGame.js'></script>
 
     <script src = 'js/collections/games.js'></script>
+    <script src = 'js/collections/myGames.js'></script>
 
-    <script src = 'js/views/signupView.js'></script>
     <script src = 'js/views/loginView.js'></script>
-    <script src = 'js/views/navView.js'></script>
     <script src = 'js/views/gamesView.js'></script>
     <script src = 'js/views/gameView.js'></script>
+    <script src = 'js/views/myGameView.js'></script>
+    <script src = 'js/views/myGamesView.js'></script>
+
 
 </head>
 <body>
    
-  <h1> video games</h1>
+  <h1>r.cade</h1>
 
 
 <div id = "user-account"></div>
 <div id = "nav"></div>
+<div id="player"></div>
+<div id = 'game-view'></div>
+<div id = 'profile-view'></div>
 
 
 <!-- <section id = "nav-box">
@@ -37,6 +44,8 @@
     <button id="search-button">Search</button>
   </div>
 </section> -->
+
+
 
 <div id = "login-box">
   <template id = "login-template">
@@ -52,12 +61,16 @@
       <input type="text" id="signup-email" placeholder="email">
       <button id="signup-button">Sign Up</button>
     </section>
+
+    <iframe src="//giphy.com/embed/wR6ejCV1RlSTe" width="480" height="349" frameBorder="0" style="max-width: 100%" class="giphy-embed" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+   
   
   </template>
 </div>
 
+
 <template id="user-template">
-    <p id="current-user" data-userid={{id}}> Welcome Back<br>{{username}}
+    <p id="current-user" data-userid={{id}}> Welcome Back {{username}}
     <button id="logout-button">Logout</button>
     <button id="profile-button">View Profile</button>
     </p>
@@ -81,19 +94,30 @@
 <template id = "profile-template">
   <div class = "profile-container">
     {{#each games}}
-    <h1>{{name}}</h1>
-    <img class = "game-image-profile" src = "{{image}}">
-    <p class = "deck">{{deck}}</p>
-    <p class = "platforms">{{platforms}}</p>
-    <button id="delete-button">Delete</button>
+    <div class = "image-container">
+      <h1>{{name}}</h1>
+        <div class="view third-effect"> 
+          <img id = "game-image-profile" class='{{name}}' src = "{{image}}">
+          <div class="mask">  
+            <a href="#" class="info" title="Full Image"></a>  
+          </div> 
+        </div> 
+      <p class = "deck"><em>About</em><br>{{deck}}</p>
+      <p class = "platforms"><em>Platforms</em><br>{{platforms}}</p>
+      <button id="delete-button">Delete</button>
+    </div>
     {{/each}}
   </div>
 </template>
 
-<div id = 'game-view'></div>
-<div id = 'profile-view'></div>
 
 
+
+<template id = "yt-template">
+  <iframe id="ytplayer" type="text/html" width="720" height="405"
+  src="https://www.youtube.com/embed/?listType=search&list={{name}}videogame&autoplay=1"
+  frameborder="0" allowfullscreen>
+</template>
 
 </body>
 </html>

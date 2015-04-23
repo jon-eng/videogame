@@ -13,7 +13,7 @@ module.exports = {
         // unique:true
       },
       deck: {
-        type: DataTypes.STRING
+        type: DataTypes.TEXT
       },
       image: {
         type: DataTypes.STRING

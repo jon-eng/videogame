@@ -18,6 +18,17 @@ usersRouter.get('/debug_session', function(req, res) {
   res.send(req.session);
 });
 
+var restrictAccess = function(req, res, next){
+  var sessionID = parseInt(req.session.currentUser);
+  var reqID = parseInt(req.params.id);
+
+  sessionID === reqID ? next() : res.status(401).send({err: 401, msg: 'no'})
+};
+
+var authenticate = function(req, res, next){
+  req.session.currentUser ? next() : res.status(400).send({err: 401, msg: 'pay the toll troll'})
+};
+
 //CREATE USER
 usersRouter.post('/', function(req, res) {
   bcrypt.hash(req.body.password, 10, function(err, hash) {
@@ -80,9 +91,11 @@ usersRouter.delete('/sessions', function(req, res) {
 
 //GET CURRENT USER
 usersRouter.get('/current_user', function(req, res) {
-  var userID = req.session.currentUser;
   User
-    .findOne(userID)
+    .findOne({
+      where: { id: req.session.currentUser},
+      include: [Game]
+    })
     .then(function(user) {
       res.send(user);
     });
@@ -103,7 +116,7 @@ usersRouter.delete('/:id', function(req, res) {
 });
 
 //GET ONE USER
-usersRouter.get('/:id', function(req, res) {
+usersRouter.get('/:id', authenticate, restrictAccess, function(req, res) {
   User
     .findOne({
       where: { id: req.params.id },
@@ -115,7 +128,7 @@ usersRouter.get('/:id', function(req, res) {
 });
 
 //CREATE GAME FOR USER
-usersRouter.post('/:id/games', function(req, res){
+usersRouter.post('/:id/games', authenticate, restrictAccess,function(req, res){
   var userID = req.params.id;
   Game
     .findOrCreate({where: {name: req.body.name}, defaults: req.body})

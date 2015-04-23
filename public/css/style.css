@@ -7,6 +7,12 @@ body {
   margin: 0 auto;
   width: 1000px;
 }
+
+#user-account{
+  margin-left: 25%;
+  width: 500px;
+}
+
 .game-container {
   float: left;
   display: inline block;
@@ -35,26 +41,81 @@ body {
 }
 
 :focus {
-  color: none;
+  outline: none;
 }
 
 #current-user {
-  float: left;
+  /*float: left;*/
+  width: 100%;
+  text-align: center;
+/*  position: fixed;*/
+  top: 0;
+  z-index: 999;
 }
 
 #game-view{
   margin-top: 10px;
 }
 
-#search-button{
-  border: none;
+button{
+  border: solid 1px;
   margin-top: 10px;
   margin-left: 5px;
-  height: 52px;
-  background: #2b303b;
-  color: #63717f;
-  border-radius: 5px;
+  height: 28px;
+  color: white;
+  background-color: darkslategrey;
+  border-radius: 4px;
 }
+
+button:hover{
+  background: transparent;
+  color: #226fbe;
+  cursor: pointer;
+}
+
+img{
+  border-radius:5px;
+}
+
+.image-container{
+  float: left;
+  display: inline block;
+  width: 400px;
+  height: 500px;
+  padding-left:10px;
+  padding-right: 10px;
+  text-align: center;
+}
+
+img#game-image-profile{
+  width: 160px;
+  height: 160px;
+}
+
+.profile-container{
+  margin-left:2%;
+  margin-right: 2%;
+  text-align: center;
+}
+
+p.deck{
+  text-align: left;
+  font-size: 12px;
+}
+
+p.platforms{
+  text-align: left;
+  font-size: 12px;
+}
+
+em{
+  color: white;
+}
+
+.giphy-embed{
+
+}
+
 /*
 #top-bar .icon{
   position: absolute;

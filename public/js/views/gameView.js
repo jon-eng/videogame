@@ -11,7 +11,7 @@ App.Views.Game = Backbone.View.extend({
 
   render: function(){
     var data = this.model.toJSON();
-    // console.log(data)
+    console.log(data)
     var compiledTemplate = this.gameTemplate(data);
     this.$el.html(compiledTemplate); 
   },
