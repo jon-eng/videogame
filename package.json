@@ -19,6 +19,7 @@
   "dependencies": {
     "bcrypt": "^0.8.2",
     "chai": "^2.2.0",
+    "express": "^4.12.2",
     "express-session": "^1.11.1",
     "mocha": "^2.2.4",
     "pg": "^4.3.0",
