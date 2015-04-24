@@ -168,6 +168,20 @@ usersRouter.get('/:id/games', function(req, res) {
     });
 });
 
+usersRouter.delete('/:id/games', function(req, res) {
+  Game
+    .findOne({
+      where: { id: req.params.id },
+    })
+    .then(function(game) {
+      game
+        .destroy()
+        then(function(){
+          res.send(game);
+        })
+      
+    });
+});
 
 
 

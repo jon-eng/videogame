@@ -8,6 +8,10 @@ body {
   width: 1000px;
 }
 
+h1{
+  font-size: 40px;
+}
+
 #user-account{
   margin-left: 25%;
   width: 500px;
@@ -85,6 +89,7 @@ img{
   padding-left:10px;
   padding-right: 10px;
   text-align: center;
+  margin-left: 30px;
 }
 
 img#game-image-profile{
@@ -100,20 +105,27 @@ img#game-image-profile{
 
 p.deck{
   text-align: left;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 p.platforms{
   text-align: left;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 em{
   color: white;
 }
 
-.giphy-embed{
+#ytplayer{
+  margin-top: 25px;
+  margin-left: 100px;
+  width: 720px;
+}
 
+img#game-image-profile:hover{
+  cursor: pointer;
+  opacity: 0.3;
 }
 
 /*

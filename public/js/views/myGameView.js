@@ -5,7 +5,18 @@ App.Views.MyGame = Backbone.View.extend({
     this.render();
   },
 
-  
+  events: {
+    'click #delete-button': 'deleteGame'
+  },
+
+  // deleteGame: function(){
+
+  //   $.ajax({
+  //     method: 'DELETE',
+  //     url: '/games/' + id
+  //   })
+  //   .done();
+  // },
 
   render: function(){
 
