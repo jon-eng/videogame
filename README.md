@@ -1,2 +1,5 @@
-# videogame
-wdi individual project 1
+# R.cade
+First individual project for WDI McClane
+
+R.cade
+
