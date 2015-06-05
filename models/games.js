@@ -2,6 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
   var games = sequelize.define("games", {
     name: {
+      //validate presence of game title
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
@@ -24,6 +25,8 @@ module.exports = function(sequelize, DataTypes) {
     },
   }, {
     underscored: true,
+    //Association a many to many relationship
+    //between games and users
     classMethods: {
       associate: function(models) {
         games.belongsToMany(models.users, {

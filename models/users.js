@@ -1,6 +1,7 @@
 "use strict";
 module.exports = function(sequelize, DataTypes) {
   var users = sequelize.define("users", {
+    //validate presence and uniqueness of name
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -9,6 +10,7 @@ module.exports = function(sequelize, DataTypes) {
         notEmpty: {msg: 'Name cannot be blank'}
       }
     },
+    //validate presence of password
     password_digest: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -16,6 +18,7 @@ module.exports = function(sequelize, DataTypes) {
         notEmpty: {msg: 'Password cannot be blank'}
       }
     },
+    //validate presence of password and valid email
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -27,6 +30,8 @@ module.exports = function(sequelize, DataTypes) {
 
   }, {
     underscored: true,
+    //Association a many to many relationship
+    //between games and users
     classMethods: {
       associate: function(models) {
         users.belongsToMany(models.games, {

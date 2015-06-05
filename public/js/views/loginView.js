@@ -2,23 +2,16 @@ App.Views.LoginView = Backbone.View.extend({
   el: 'body',
 
   initialize: function(){
-    console.log('load login')
+
+    //compile all the templates
+
     loginTemplate = Handlebars.compile($('#login-template').html());
     userTemplate = Handlebars.compile($('#user-template').html());
     profileTemplate = Handlebars.compile($('#profile-template').html());
     youtubeTemplate = Handlebars.compile($('#yt-template').html());
 
-
-
-
-    // this.render();
     this.renderSession(); 
   },
-
-  pacman: function() {
-
-  },
-
 
   events: {
     'click #login-button': 'login',
@@ -30,33 +23,41 @@ App.Views.LoginView = Backbone.View.extend({
   },
 
   login: function(){
-    console.log("click log in")
+
+    //grab the values from username and password
+
     var username = $('#login-username').val();
     var password = $('#login-password').val();
 
+
+    //make a post request to sessions and once
+    //complete run the function renderSession
     $.post('/users/sessions',{
       username: username,
       password: password
     }).done(this.renderSession);
 
-    // $('#signup').empty();
-
   },
 
   logout: function() {
-    console.log("clicked logout")
+
+    //make a delete request to sessions and once complete
+    //run the renderSessions function
     $.ajax({
       url: '/users/sessions',
       method: 'DELETE',
     }).done(this.renderSession);
 
+
+    //empty the divs and classes
     $('.game-container').empty();
     $('#profile-view').empty();
     $('#player').empty();
   },
 
   viewVideo: function(event){
-    console.log('image clicked')
+    
+
     var name = event.currentTarget.className;
     console.log(name)
     var newObj = {name:name}
@@ -68,7 +69,7 @@ App.Views.LoginView = Backbone.View.extend({
 
 
   renderSession: function() {
-    // this.pacman();
+
     $('#signup').empty();
     $.get('/users/current_user').done(function(user) {
       if (user) {
